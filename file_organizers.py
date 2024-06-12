@@ -39,7 +39,21 @@ def read_links_from_file(file: str) -> Dict[str, List[str]]:
         # Advance in hierarchy
         elif line.startswith("-"):
             # Get clean name with no unnecessary surrounding formatting
-            newPart = line.rstrip("\n").removeprefix("-").strip()
+            newPart = (
+                line.rstrip("\n")
+                .removeprefix("-")
+                .strip()
+                .replace("/", "、")
+                .replace("\\", "、")
+                .replace(":", " -")
+                .replace("@", "_at_")
+                .replace("#", "_")
+                .replace("?", "_")
+                .replace("*", "_")
+                .replace(">", "_")
+                .replace("|", "、")
+                .replace("<", "_")
+            )
 
             # Add first part without leading '/' to keep the path relative
             if currDir == "":
