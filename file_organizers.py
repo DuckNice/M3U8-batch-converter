@@ -1,8 +1,6 @@
 import os
 from typing import Callable, Dict, List
 
-# TODO: change path separators
-
 
 ## Open and read file list
 def read_links_from_file(file: str) -> Dict[str, List[str]]:
@@ -39,6 +37,7 @@ def read_links_from_file(file: str) -> Dict[str, List[str]]:
         # Advance in hierarchy
         elif line.startswith("-"):
             # Get clean name with no unnecessary surrounding formatting
+            # TODO: There has to be a cleaner way to do this
             newPart = (
                 line.rstrip("\n")
                 .removeprefix("-")
