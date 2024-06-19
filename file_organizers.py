@@ -1,3 +1,4 @@
+import os
 from typing import Callable, Dict, List
 
 # TODO: change path separators
@@ -9,7 +10,6 @@ def read_links_from_file(file: str) -> Dict[str, List[str]]:
     f = open(file, "r", encoding="utf-8")
 
     try:
-
         lines = f.readlines()
     finally:
         f.close()
@@ -59,7 +59,7 @@ def read_links_from_file(file: str) -> Dict[str, List[str]]:
             if currDir == "":
                 currDir = newPart
             else:
-                currDir = currDir + "/" + newPart
+                currDir = os.path.join(currDir, newPart)
         # Add to hierarchy
         else:
             if currDir not in siteLib:
@@ -75,3 +75,12 @@ def iterate_on_lib(
 ) -> None:
     for group in siteLib.items():
         callback(group[1], group[0])
+
+
+# Create directoy if it doesn't exist
+def create_directory(path: str):
+    if path == "":
+        return
+
+    if not os.path.isdir(path):
+        os.makedirs(path)
